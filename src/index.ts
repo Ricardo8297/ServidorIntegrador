@@ -10,6 +10,8 @@ import reabastecimientoRoutes from './routes/reabastecimientoRoutes';
 import ventasRoutes from './routes/ventasRoutes';
 import garantiaAdminRoutes from './routes/garantiaAdminRoutes';
 import garantiaRoutes from './routes/garantiaRoutes';
+import isAuth from './middleware/auth';
+import authRoutes from './routes/authRoutes';
 
 class Server{
 
@@ -39,11 +41,12 @@ class Server{
         this.app.use('/',indexRoutes);
         this.app.use('/api/games',gamesRoutes);
         this.app.use('/api/productos',productosRoutes);
-        this.app.use('/api/reportecompras',reporteComprasRoutes);      
-        this.app.use('/api/reabastecimiento',reabastecimientoRoutes);  
-        this.app.use('/api/ventas',ventasRoutes);
-        this.app.use('/api/garantiaadmin',garantiaAdminRoutes);
-        this.app.use('/api/garantia',garantiaRoutes);
+        this.app.use('/auth', authRoutes);
+        this.app.use('/api/reportecompras',isAuth,reporteComprasRoutes);      
+        this.app.use('/api/reabastecimiento',isAuth,reabastecimientoRoutes);  
+        this.app.use('/api/ventas',isAuth,ventasRoutes);
+        this.app.use('/api/garantiaadmin',isAuth,garantiaAdminRoutes);
+        this.app.use('/api/garantia',isAuth,garantiaRoutes);
     }
 
 

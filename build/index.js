@@ -14,6 +14,8 @@ const reabastecimientoRoutes_1 = __importDefault(require("./routes/reabastecimie
 const ventasRoutes_1 = __importDefault(require("./routes/ventasRoutes"));
 const garantiaAdminRoutes_1 = __importDefault(require("./routes/garantiaAdminRoutes"));
 const garantiaRoutes_1 = __importDefault(require("./routes/garantiaRoutes"));
+const auth_1 = __importDefault(require("./middleware/auth"));
+const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -37,11 +39,12 @@ class Server {
         this.app.use('/', indexRoutes_1.default);
         this.app.use('/api/games', gamesRoutes_1.default);
         this.app.use('/api/productos', productosRoutes_1.default);
-        this.app.use('/api/reportecompras', reporteComprasRoutes_1.default);
-        this.app.use('/api/reabastecimiento', reabastecimientoRoutes_1.default);
-        this.app.use('/api/ventas', ventasRoutes_1.default);
-        this.app.use('/api/garantiaadmin', garantiaAdminRoutes_1.default);
-        this.app.use('/api/garantia', garantiaRoutes_1.default);
+        this.app.use('/auth', authRoutes_1.default);
+        this.app.use('/api/reportecompras', auth_1.default, reporteComprasRoutes_1.default);
+        this.app.use('/api/reabastecimiento', auth_1.default, reabastecimientoRoutes_1.default);
+        this.app.use('/api/ventas', auth_1.default, ventasRoutes_1.default);
+        this.app.use('/api/garantiaadmin', auth_1.default, garantiaAdminRoutes_1.default);
+        this.app.use('/api/garantia', auth_1.default, garantiaRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => {
