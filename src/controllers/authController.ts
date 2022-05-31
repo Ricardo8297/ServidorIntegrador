@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'N2M4NTNmYjJlYTEwMDc2YTU3NDhlZjdm';
 
 const DuserB ="SELECT * FROM usuarios WHERE nombre=?";
-const userI="INSERT INTO usuarios (nombre,contraseña,tipo_usuario) VALUES (?,?,1)";
+const userI="INSERT INTO usuarios (nombre,contraseña,tipo_usuario) VALUES (?,?,3)";
 class AUTHController {
 
 
