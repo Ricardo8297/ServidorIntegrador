@@ -42,6 +42,12 @@ class VentasController{
       res.json({Message: 'venta Eliminada'});
     }
 
+    public async busqueda (req: Request,res: Response){  
+      const {fecha1,fecha2} = req.body;   
+      const games = await pool.query('SELECT * FROM ventas WHERE fecha BETWEEN ? AND ?',[fecha1,fecha2])
+      res.json(games)
+    } 
+
    
 }
 

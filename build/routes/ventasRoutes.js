@@ -26,6 +26,8 @@ class VentasRoutes {
         this.router.put('/:id', ventasController_1.default.update);
         //Metodo delete
         this.router.delete('/:id', ventasController_1.default.delete);
+        //Busqueda
+        this.router.post('/buscar/uno', ventasController_1.default.busqueda);
     }
 }
 const ventasRoutes = new VentasRoutes();

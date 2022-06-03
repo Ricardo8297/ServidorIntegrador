@@ -21,6 +21,8 @@ class VentasRoutes{
         //listamos todos los juegos
         this.router.get('/',ventasController.list);
 
+        
+
         //un juego en especifico
         this.router.get('/:id',ventasController.getOne);
 
@@ -33,7 +35,8 @@ class VentasRoutes{
         //Metodo delete
         this.router.delete('/:id',ventasController.delete);
 
-
+        //Busqueda
+        this.router.post('/buscar/uno',ventasController.busqueda);
     }
 
 
