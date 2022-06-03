@@ -55,6 +55,13 @@ class ReporteComprasController {
             res.json({ Message: 'Reporte Eliminado' });
         });
     }
+    busqueda(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { fecha1, fecha2 } = req.body;
+            const games = yield database_1.default.query('SELECT * FROM reporte_compras WHERE fecha BETWEEN ? AND ?', [fecha1, fecha2]);
+            res.json(games);
+        });
+    }
 }
 //Exportar solo "una"
 const reporteComprasController = new ReporteComprasController();

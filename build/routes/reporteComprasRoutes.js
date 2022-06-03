@@ -25,6 +25,8 @@ class ReporteComprasRoutes {
         this.router.put('/:id', reporteComprasController_1.default.update);
         //Metodo delete
         this.router.delete('/:id', reporteComprasController_1.default.delete);
+        //Busqueda
+        this.router.post('/buscar/uno', reporteComprasController_1.default.busqueda);
     }
 }
 const reporteComprasRoutes = new ReporteComprasRoutes();

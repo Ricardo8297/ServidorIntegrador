@@ -30,7 +30,8 @@ class ReporteComprasRoutes{
 
         //Metodo delete
         this.router.delete('/:id',reporteComprasController.delete);
-
+        //Busqueda
+        this.router.post('/buscar/uno',reporteComprasController.busqueda);
 
     }
 

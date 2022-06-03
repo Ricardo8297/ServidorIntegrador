@@ -41,6 +41,12 @@ class ReporteComprasController{
        await pool.query('DELETE FROM reporte_compras WHERE id = ?',[id]);
        res.json({Message: 'Reporte Eliminado'});
      }
+
+     public async busqueda (req: Request,res: Response){  
+      const {fecha1,fecha2} = req.body;   
+      const games = await pool.query('SELECT * FROM reporte_compras WHERE fecha BETWEEN ? AND ?',[fecha1,fecha2])
+      res.json(games)
+    } 
  
     
  }
