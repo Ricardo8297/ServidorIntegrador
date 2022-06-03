@@ -44,7 +44,7 @@ class Server{
         this.app.use('/auth', authRoutes);
         this.app.use('/api/reportecompras',isAuth,reporteComprasRoutes);      
         this.app.use('/api/reabastecimiento',isAuth,reabastecimientoRoutes);  
-        this.app.use('/api/ventas',isAuth,ventasRoutes);
+        this.app.use('/api/ventas',ventasRoutes);
         this.app.use('/api/garantiaadmin',isAuth,garantiaAdminRoutes);
         this.app.use('/api/garantia',isAuth,garantiaRoutes);
     }

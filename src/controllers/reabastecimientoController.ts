@@ -9,7 +9,7 @@ class ReabastecimientoController{
        const games = await pool.query('SELECT * from reabastecimiento');
         //devolucion al cliente en forma de json
         res.json(games)
-     }
+    }
  
      public async getOne (req: Request,res: Response){ 
        const { id } = req.params;
