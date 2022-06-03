@@ -10,16 +10,28 @@ const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'N2M4NTNmYjJlYTEwMDc2YTU3NDhlZjdm';
 
 const DuserB ="SELECT * FROM usuarios WHERE nombre=?";
-const userI="INSERT INTO usuarios (nombre,contraseña,tipo_usuario) VALUES (?,?,3)";
+const userI="INSERT INTO usuarios (nombre,contraseña,tipo_usuario,apellidop,apellidom,direccion,telefono,email) VALUES (?,?,3,?,?,?,?,?)";
 class AUTHController {
 
+    public async list (req: Request,res: Response) { 
+        //ejecucion de la consulta asincrona 
+        const games = await pool.query('SELECT * from usuarios');
+         //devolucion al cliente en forma de json
+         res.json(games)
+      }
+
+      public async delete (req: Request,res: Response){
+        const { id } = req.params;
+        await pool.query('DELETE FROM usuarios WHERE id = ?',[id]);
+        res.json({Message: 'Usuario Eliminado'});
+      }
 
     public async createUser(req: Request, res: Response): Promise<any>{
         
 
         try {
             
-            const { names, passw, passwc } = req.body;
+            const { names, passw, passwc, apellidop, apellidom, direccion, telefono ,email   } = req.body;
            
             
             const user = await pool.query(DuserB,[names]); 
@@ -27,7 +39,7 @@ class AUTHController {
             if (user.length > 0) {
                 
                 //res.json({ text: 'Usuario reg' });
-                res.status(409).send({ message: 'Usuario Registrado' });
+                res.status(409).send({ message: 'Usuario ya registrado' });
             } else {
                
                 if (passw != passwc) {
@@ -37,7 +49,7 @@ class AUTHController {
                 } else {
                    
                     const passwEncry = bcrypt.hashSync(passw, 10);
-                    await pool.query(userI,[names,passwEncry]);
+                    await pool.query(userI,[names,passwEncry,apellidop,apellidom,direccion,telefono,email]);
                     const newUserConsult= await pool.query(DuserB,[names]);
                     const expiresIn = 24 * 60 * 60;
                     const accessToken = await jwt.sign({ id: newUserConsult[0].id },

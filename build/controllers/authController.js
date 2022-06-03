@@ -19,16 +19,31 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'N2M4NTNmYjJlYTEwMDc2YTU3NDhlZjdm';
 const DuserB = "SELECT * FROM usuarios WHERE nombre=?";
-const userI = "INSERT INTO usuarios (nombre,contraseña,tipo_usuario) VALUES (?,?,3)";
+const userI = "INSERT INTO usuarios (nombre,contraseña,tipo_usuario,apellidop,apellidom,direccion,telefono,email) VALUES (?,?,3,?,?,?,?,?)";
 class AUTHController {
+    list(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            //ejecucion de la consulta asincrona 
+            const games = yield database_1.default.query('SELECT * from usuarios');
+            //devolucion al cliente en forma de json
+            res.json(games);
+        });
+    }
+    delete(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            yield database_1.default.query('DELETE FROM usuarios WHERE id = ?', [id]);
+            res.json({ Message: 'Usuario Eliminado' });
+        });
+    }
     createUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { names, passw, passwc } = req.body;
+                const { names, passw, passwc, apellidop, apellidom, direccion, telefono, email } = req.body;
                 const user = yield database_1.default.query(DuserB, [names]);
                 if (user.length > 0) {
                     //res.json({ text: 'Usuario reg' });
-                    res.status(409).send({ message: 'Usuario Registrado' });
+                    res.status(409).send({ message: 'Usuario ya registrado' });
                 }
                 else {
                     if (passw != passwc) {
@@ -37,7 +52,7 @@ class AUTHController {
                     }
                     else {
                         const passwEncry = bcrypt.hashSync(passw, 10);
-                        yield database_1.default.query(userI, [names, passwEncry]);
+                        yield database_1.default.query(userI, [names, passwEncry, apellidop, apellidom, direccion, telefono, email]);
                         const newUserConsult = yield database_1.default.query(DuserB, [names]);
                         const expiresIn = 24 * 60 * 60;
                         const accessToken = yield jwt.sign({ id: newUserConsult[0].id }, SECRET_KEY, {

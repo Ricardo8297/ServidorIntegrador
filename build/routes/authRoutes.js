@@ -11,6 +11,8 @@ class AUTHRoutes {
         this.router.post('/login', authController_1.authController.loginUser);
         this.router.post('/register', authController_1.authController.createUser);
         this.router.post('/validate_token', authController_1.authController.validateToken);
+        this.router.get('/', authController_1.authController.list);
+        this.router.delete('/:id', authController_1.authController.delete);
     }
 }
 const authRoutes = new AUTHRoutes();
