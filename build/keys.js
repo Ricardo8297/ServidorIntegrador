@@ -7,7 +7,7 @@ exports.default = {
         host: 'localhost',
         user: 'Ricardo',
         password: '123',
-        database: 'scv_db'
+        database: 'svc'
         //port: ''
     }
 };
