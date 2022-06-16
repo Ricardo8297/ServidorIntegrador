@@ -44,7 +44,7 @@ class Server {
         this.app.use('/api/reabastecimiento', auth_1.default, reabastecimientoRoutes_1.default);
         this.app.use('/api/ventas', ventasRoutes_1.default);
         this.app.use('/api/garantiaadmin', auth_1.default, garantiaAdminRoutes_1.default);
-        this.app.use('/api/garantia', auth_1.default, garantiaRoutes_1.default);
+        this.app.use('/api/garantia', garantiaRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => {
