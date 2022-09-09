@@ -7,7 +7,7 @@ exports.default = {
         host: 'containers-us-west-41.railway.app',
         user: 'root',
         password: '1L0r7GnylIaxPYf3CAzz723',
-        database: 'railway'
-        //port: ''
+        database: 'railway',
+        port: '6619'
     }
 };
