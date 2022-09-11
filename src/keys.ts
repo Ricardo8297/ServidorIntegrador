@@ -5,6 +5,7 @@ export default{
         host: 'containers-us-west-86.railway.app',
         user: 'root',
         password: 'UUdnwCO3Oeud17pHxA8p',
-        database: 'railway'
+        database: 'railway',
+        port: '7888'
     }
 }
