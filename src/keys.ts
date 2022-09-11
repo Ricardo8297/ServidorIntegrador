@@ -6,6 +6,6 @@ export default{
         user: 'root',
         password: 'Flx93iol9tZ9vl225XiM',
         database: 'railway',
-        port: '7019'  
+        port: 7019  
     }
 }
