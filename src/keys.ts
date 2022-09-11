@@ -2,10 +2,10 @@
 export default{
     database:{
         //Cambiar por la ip dada por el host
-        host: 'containers-us-west-69.railway.app',
+        host: 'containers-us-west-86.railway.app',
         user: 'root',
-        password: 'vyfm3BW5rS2pzZnJya4K',
+        password: 'UUdnwCO3Oeud17pHxA8p',
         database: 'railway',
-        port: '5705'
+        port: '7888'
     }
 }
