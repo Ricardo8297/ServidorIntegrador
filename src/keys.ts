@@ -4,7 +4,7 @@ export default{
         //Cambiar por la ip dada por el host
         host: 'containers-us-west-86.railway.app',
         user: 'root',
-        password: 'UUdnwCO3Oeud17pHxA8p',
+        password: '9lF2X54ooCx7H3pyDu6w',
         database: 'railway',
         port: '7888'
     }
