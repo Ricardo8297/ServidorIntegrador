@@ -25,6 +25,8 @@ class ReabastecimientoRoutes {
         this.router.put('/:id', reabastecimientoController_1.default.update);
         //Metodo delete
         this.router.delete('/:id', reabastecimientoController_1.default.delete);
+        //Busqueda
+        this.router.post('/buscar/uno', reabastecimientoController_1.default.busqueda);
     }
 }
 const reabastecimientoRoutes = new ReabastecimientoRoutes();

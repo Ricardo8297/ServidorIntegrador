@@ -35,7 +35,7 @@ class ProductosRoutes{
         //Metodo delete
         this.router.delete('/:id',productosController.delete);
 
-
+        this.router.post('/buscar/uno',productosController.busqueda);
     }
 
 

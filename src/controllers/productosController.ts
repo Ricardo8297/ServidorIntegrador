@@ -23,17 +23,37 @@ class ProductosController{
     }
 
     public async create (req: Request,res: Response): Promise<void>{
-      console.log(req.body);
-      await pool.query('INSERT INTO productos set ?',[req.body])
-      res.json({Message: 'Producto Guardado'});
-    } 
+      const { id, nombre, codigo, precio,descripcion, categoria,imegen, existencia,proovedor} = req.body;
+      const existNombre = await pool.query('SELECT * from productos WHERE nombre = ?',[nombre]); 
+      const existCodigo = await pool.query('SELECT * from productos WHERE codigo = ?',[codigo]); 
+      if(existNombre.length > 0){
+        res.status(409).send({ message: 'El producto ya esta registrado' });
+      }else if(existCodigo.length > 0){
+        res.status(409).send({ message: 'El codigo de producto ya esta registrado' });
+      }else{
+        console.log(req.body);
+        await pool.query('INSERT INTO productos set ?',[req.body])
+        res.json({Message: 'Producto Guardado'});
+      }
+      
+    }
 
  
     public async update (req: Request,res: Response){
       const { id } = req.params;
+      const { nombre, codigo, precio,descripcion, categoria,imagen, existencia,proovedor} = req.body;
+      const existNombre = await pool.query('SELECT * FROM productos WHERE nombre = ? AND id <> ?',[nombre,id]); 
+      const existCodigo = await pool.query('SELECT * from productos WHERE codigo = ? AND id <> ?',[codigo,id]); 
+      if(existNombre.length > 0){
+        res.status(409).send({ message: 'El producto ya esta registrado' });
+      }else if(existCodigo.length > 0){
+        res.status(409).send({ message: 'El codigo de producto ya esta registrado' });
+      }else{
       //Desde req..body va a enviar el conjunto de datos
+      //TODO cheque donde el id donde sea diferente del actual
       await pool.query('UPDATE productos set ? WHERE id = ?',[req.body, id]); 
       res.json({Message: 'Producto Actualizado'});
+      }
     }
 
     public async delete (req: Request,res: Response){
@@ -42,7 +62,11 @@ class ProductosController{
       res.json({Message: 'Producto Eliminado'});
     }
 
-   
+    public async busqueda (req: Request,res: Response){  
+      const {fecha1,fecha2} = req.body;   
+      const games = await pool.query('SELECT * FROM productos WHERE fecha BETWEEN ? AND ?',[fecha1,fecha2])
+      res.json(games)
+    } 
 }
 
 //Exportar solo "una"

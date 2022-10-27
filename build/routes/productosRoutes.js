@@ -26,6 +26,7 @@ class ProductosRoutes {
         this.router.put('/:id', productosController_1.default.update);
         //Metodo delete
         this.router.delete('/:id', productosController_1.default.delete);
+        this.router.post('/buscar/uno', productosController_1.default.busqueda);
     }
 }
 const productosRoutes = new ProductosRoutes();

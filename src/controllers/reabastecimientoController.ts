@@ -42,7 +42,11 @@ class ReabastecimientoController{
        res.json({Message: 'Reporte Eliminado'});
      }
  
-    
+     public async busqueda (req: Request,res: Response){  
+      const {fecha1,fecha2} = req.body;   
+      const games = await pool.query('SELECT * FROM reabastecimiento WHERE fecha BETWEEN ? AND ?',[fecha1,fecha2])
+      res.json(games)
+    } 
  }
  
  //Exportar solo "una"

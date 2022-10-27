@@ -32,7 +32,8 @@ class ReabastecimientoRoutes{
         //Metodo delete
         this.router.delete('/:id',reabastecimientoController.delete);
 
-
+        //Busqueda
+        this.router.post('/buscar/uno',reabastecimientoController.busqueda);
     }
 
 

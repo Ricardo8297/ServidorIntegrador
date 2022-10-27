@@ -55,6 +55,13 @@ class ReabastecimientoController {
             res.json({ Message: 'Reporte Eliminado' });
         });
     }
+    busqueda(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { fecha1, fecha2 } = req.body;
+            const games = yield database_1.default.query('SELECT * FROM reabastecimiento WHERE fecha BETWEEN ? AND ?', [fecha1, fecha2]);
+            res.json(games);
+        });
+    }
 }
 //Exportar solo "una"
 const reabastecimientoController = new ReabastecimientoController();

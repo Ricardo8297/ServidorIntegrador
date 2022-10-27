@@ -41,7 +41,7 @@ class Server {
         this.app.use('/api/productos', productosRoutes_1.default);
         this.app.use('/auth', authRoutes_1.default);
         this.app.use('/api/reportecompras', auth_1.default, reporteComprasRoutes_1.default);
-        this.app.use('/api/reabastecimiento', auth_1.default, reabastecimientoRoutes_1.default);
+        this.app.use('/api/reabastecimiento', reabastecimientoRoutes_1.default);
         this.app.use('/api/ventas', ventasRoutes_1.default);
         this.app.use('/api/garantiaadmin', auth_1.default, garantiaAdminRoutes_1.default);
         this.app.use('/api/garantia', garantiaRoutes_1.default);
