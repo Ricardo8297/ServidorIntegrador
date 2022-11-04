@@ -13,6 +13,7 @@ class AUTHRoutes {
         this.router.post('/validate_token', authController_1.authController.validateToken);
         this.router.get('/', authController_1.authController.list);
         this.router.delete('/:id', authController_1.authController.delete);
+        this.router.get('/:id', authController_1.authController.banear);
     }
 }
 const authRoutes = new AUTHRoutes();

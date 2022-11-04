@@ -86,7 +86,9 @@ class AUTHController {
                 names
             ]);
             if (user.length > 0) {
-                if (!bcrypt.compareSync(passw, user[0].contraseña)) {
+                if(user[0].tipo_usuario == 4){
+                    res.status(409).send({ message: 'ACCESO DENEGADO' });
+                }else if (!bcrypt.compareSync(passw, user[0].contraseña)) {
                     //res.json({ text: 'Usuario o contraseña incorrecta' });
                     res.status(409).send({ message: 'Usuario o contraseña incorrecta' });
                 } else {
@@ -131,6 +133,20 @@ class AUTHController {
         } catch (err) {
             res.status(401).send({ message: 'ERROR: '+err });
         }
+    }
+
+    public async banear(req: Request ,res: Response):Promise<any>{
+        const { id } = req.params;
+
+        
+      const user = await pool.query('Select * from usuarios WHERE id = ?',[id]);
+      if(user[0].tipo_usuario == 4){
+      //Se guarda en una constante si tiene un uso el arreglo
+      const games = await pool.query('Update usuarios set tipo_usuario = 3 WHERE id = ?',[id]);
+      }else{
+      const games = await pool.query('Update usuarios set tipo_usuario = 4 WHERE id = ?',[id]);
+      }
+      res.json({Message: 'Cambios realizados'});
     }
 }
 

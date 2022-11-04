@@ -15,6 +15,7 @@ config(): void{
     
     this.router.get('/',authController.list);
     this.router.delete('/:id',authController.delete);
+    this.router.get('/:id',authController.banear);
 }
 
 }
