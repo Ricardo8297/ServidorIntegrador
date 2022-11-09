@@ -36,9 +36,16 @@ class GarantiaController {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { codigoProducto, imagen } = req.body;
+            const verifychanges = yield database_1.default.query('SELECT * from productos WHERE codigo = ?', [codigoProducto]);
             console.log(req.body);
-            yield database_1.default.query('INSERT INTO garantias set ?', [req.body]);
-            res.json({ Message: 'Producto Guardado' });
+            if (verifychanges.length) {
+                yield database_1.default.query('INSERT INTO garantias set ?', [req.body]);
+                res.json({ Message: 'Producto Guardado' });
+            }
+            else {
+                res.status(409).send({ message: 'Revisa que coincidan la imagen y el producto' });
+            }
         });
     }
     update(req, res) {

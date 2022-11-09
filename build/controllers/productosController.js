@@ -58,17 +58,23 @@ class ProductosController {
             const { nombre, codigo, precio, descripcion, categoria, imagen, existencia, proovedor } = req.body;
             const existNombre = yield database_1.default.query('SELECT * FROM productos WHERE nombre = ? AND id <> ?', [nombre, id]);
             const existCodigo = yield database_1.default.query('SELECT * from productos WHERE codigo = ? AND id <> ?', [codigo, id]);
-            if (existNombre.length > 0) {
-                res.status(409).send({ message: 'El producto ya esta registrado' });
-            }
-            else if (existCodigo.length > 0) {
-                res.status(409).send({ message: 'El codigo de producto ya esta registrado' });
+            const verifychanges = yield database_1.default.query('SELECT * from productos WHERE id = ?', [id]);
+            if (verifychanges[0].nombre == nombre && verifychanges[0].codigo == codigo && verifychanges[0].precio == precio && verifychanges[0].descripcion == descripcion && verifychanges[0].categoria == categoria && verifychanges[0].imagen == imagen && verifychanges[0].existencia == existencia && verifychanges[0].proovedor == proovedor) {
+                res.status(409).send({ message: 'No se han realizado modificaciones' });
             }
             else {
-                //Desde req..body va a enviar el conjunto de datos
-                //TODO cheque donde el id donde sea diferente del actual
-                yield database_1.default.query('UPDATE productos set ? WHERE id = ?', [req.body, id]);
-                res.json({ Message: 'Producto Actualizado' });
+                if (existNombre.length > 0) {
+                    res.status(409).send({ message: 'El producto ya esta registrado' });
+                }
+                else if (existCodigo.length > 0) {
+                    res.status(409).send({ message: 'El codigo de producto ya esta registrado' });
+                }
+                else {
+                    //Desde req..body va a enviar el conjunto de datos
+                    //TODO cheque donde el id donde sea diferente del actual
+                    yield database_1.default.query('UPDATE productos set ? WHERE id = ?', [req.body, id]);
+                    res.json({ Message: 'Producto Actualizado' });
+                }
             }
         });
     }

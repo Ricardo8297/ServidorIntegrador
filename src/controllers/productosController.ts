@@ -44,7 +44,11 @@ class ProductosController{
       const { nombre, codigo, precio,descripcion, categoria,imagen, existencia,proovedor} = req.body;
       const existNombre = await pool.query('SELECT * FROM productos WHERE nombre = ? AND id <> ?',[nombre,id]); 
       const existCodigo = await pool.query('SELECT * from productos WHERE codigo = ? AND id <> ?',[codigo,id]); 
-      if(existNombre.length > 0){
+      const verifychanges = await pool.query('SELECT * from productos WHERE id = ?',[id]); 
+      if(verifychanges[0].nombre == nombre && verifychanges[0].codigo == codigo && verifychanges[0].precio == precio && verifychanges[0].descripcion == descripcion && verifychanges[0].categoria == categoria && verifychanges[0].imagen == imagen && verifychanges[0].existencia == existencia && verifychanges[0].proovedor == proovedor){
+        res.status(409).send({ message: 'No se han realizado modificaciones' });
+      }else{
+        if(existNombre.length > 0){
         res.status(409).send({ message: 'El producto ya esta registrado' });
       }else if(existCodigo.length > 0){
         res.status(409).send({ message: 'El codigo de producto ya esta registrado' });
@@ -54,6 +58,7 @@ class ProductosController{
       await pool.query('UPDATE productos set ? WHERE id = ?',[req.body, id]); 
       res.json({Message: 'Producto Actualizado'});
       }
+    }
     }
 
     public async delete (req: Request,res: Response){
